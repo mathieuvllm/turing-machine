@@ -115,25 +115,19 @@ impl Machine {
                 .transitions
                 .get(&(current_state, self.tape[self.index]))
             {
+                current_state = value.0;
+                self.tape[self.index] = value.1;
                 match value.2 {
                     Direction::Halt => running = false,
-                    Direction::Right => {
-                        current_state = value.0;
-                        self.tape[self.index] = value.1;
-                        self.index += 1;
-                    }
-                    Direction::Left => {
-                        current_state = value.0;
-                        self.tape[self.index] = value.1;
-                        self.index -= 1;
-                    }
+                    Direction::Right => self.index += 1,
+                    Direction::Left => self.index -= 1,
                 }
                 match print_blank {
                     true => self.print_tape(),
                     false => self.print_tape_no_blank(),
                 }
                 println!(
-                    " | state {current_state} {}",
+                    " | {} state {current_state}",
                     match value.2 {
                         Direction::Right => "->",
                         Direction::Left => "<-",
