@@ -20,8 +20,6 @@ pub struct Machine {
 }
 
 impl Machine {
-    /// states: all states of the Turing machine
-    /// alphabet: characters that are writable on the tape
     /// initial: state in which the machine starts
     /// transitions: key = (source state, symbol read), value = (destination state, symbol written, direction (right, left, halt))
     /// blank: blank symbol
@@ -43,6 +41,8 @@ impl Machine {
         }
     }
 
+    /// Prints the tape of the machine, including the blank characters at the beginning and
+    /// at the end
     pub fn print_tape(&self) {
         for i in 0..TAPE_SIZE {
             if i == self.index {
@@ -101,6 +101,7 @@ impl Machine {
         }
     }
 
+    /// Track the execution of the machine
     pub fn execute(&mut self, print_blank: bool) {
         match print_blank {
             true => self.print_tape(),
