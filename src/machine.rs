@@ -132,7 +132,14 @@ impl Machine {
                     true => self.print_tape(),
                     false => self.print_tape_no_blank(),
                 }
-                println!(" | state {current_state}");
+                println!(
+                    " | state {current_state} {}",
+                    match value.2 {
+                        Direction::Right => "->",
+                        Direction::Left => "<-",
+                        Direction::Halt => "HALT",
+                    }
+                );
             }
         }
     }
