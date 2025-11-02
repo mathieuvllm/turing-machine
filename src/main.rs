@@ -28,5 +28,6 @@ fn main() {
     tape[index] = '1';
     tape[index + 1] = '1';
     let m = Machine::new(states, alphabet, initial, transitions, blank, tape, index);
-    println!("{m:?}");
+    println!("{m:?}\n");
+    m.print_tape();
 }
