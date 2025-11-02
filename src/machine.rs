@@ -3,14 +3,12 @@ use std::collections::HashMap;
 
 pub const TAPE_SIZE: usize = 64;
 
-#[derive(Debug)]
 pub enum Direction {
     Right,
     Left,
     Halt,
 }
 
-#[derive(Debug)]
 pub struct Machine {
     initial: u32,
     transitions: HashMap<(u32, char), (u32, char, Direction)>,
