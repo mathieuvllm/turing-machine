@@ -2,7 +2,7 @@
 ## Machine 1
 This machine has the alphabet {0, 1}, with 0 being its blank character,
 and starts with 11 in the middle of the tape.
-It basically duplicated the sequence of 1s, separating the two sequences by a 0.
+It basically duplicates the sequence of 1s, separating the two sequences by a 0.
 For more info, see [https://fr.wikipedia.org/wiki/Machine_de_Turing#Doubler_le_nombre_de_'1'] (in French).
 
 ```Rust
