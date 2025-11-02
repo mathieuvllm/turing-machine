@@ -5,3 +5,6 @@ edition = "2024"
 
 [dependencies]
 simply_colored = "0.1.4"
+
+[lib]
+path = "src/lib.rs"
