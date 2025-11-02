@@ -1,5 +1,5 @@
+use simply_colored::*;
 use std::collections::HashMap;
-use std::collections::HashSet;
 
 pub const TAPE_SIZE: usize = 64;
 
@@ -12,8 +12,6 @@ pub enum Direction {
 
 #[derive(Debug)]
 pub struct Machine {
-    states: HashSet<u32>,
-    alphabet: HashSet<char>,
     initial: u32,
     transitions: HashMap<(u32, char), (u32, char, Direction)>,
     blank: char,
@@ -30,8 +28,6 @@ impl Machine {
     /// tape: array of symbols used as tape (leave blank characters at beginning/end of the array)
     /// index: current symbol to be read
     pub fn new(
-        states: HashSet<u32>,
-        alphabet: HashSet<char>,
         initial: u32,
         transitions: HashMap<(u32, char), (u32, char, Direction)>,
         blank: char,
@@ -39,8 +35,6 @@ impl Machine {
         index: usize,
     ) -> Self {
         Machine {
-            states,
-            alphabet,
             initial,
             transitions,
             blank,
@@ -49,9 +43,19 @@ impl Machine {
         }
     }
 
+    pub fn print_tape(&self) {
+        for i in 0..TAPE_SIZE {
+            if i == self.index {
+                print!("{UNDERLINE}{}{NO_UNDERLINE}", self.tape[i]);
+            } else {
+                print!("{}", self.tape[i]);
+            }
+        }
+    }
+
     /// Prints the tape of the machine, without the blank characters at the beginning and
     /// at the end
-    pub fn print_tape(&self) {
+    pub fn print_tape_no_blank(&self) {
         let mut start: usize = 0;
 
         for (index, c) in self.tape.iter().enumerate() {
@@ -70,9 +74,66 @@ impl Machine {
             }
         }
 
-        for i in start..=end {
-            print!("{}", self.tape[i]);
+        if start <= self.index && self.index <= end {
+            for i in start..=end {
+                if i == self.index {
+                    print!("{UNDERLINE}{}{NO_UNDERLINE}", self.tape[i]);
+                } else {
+                    print!("{}", self.tape[i]);
+                }
+            }
+        } else if self.index < start {
+            for i in self.index..=end {
+                if i == self.index {
+                    print!("{UNDERLINE}{}{NO_UNDERLINE}", self.tape[i]);
+                } else {
+                    print!("{}", self.tape[i]);
+                }
+            }
+        } else {
+            for i in start..=self.index {
+                if i == self.index {
+                    print!("{UNDERLINE}{}{NO_UNDERLINE}", self.tape[i]);
+                } else {
+                    print!("{}", self.tape[i]);
+                }
+            }
         }
-        println!();
+    }
+
+    pub fn execute(&mut self, print_blank: bool) {
+        match print_blank {
+            true => self.print_tape(),
+            false => self.print_tape_no_blank(),
+        }
+        let mut running = true;
+        let mut current_state = self.initial;
+        println!(" | state {current_state}");
+
+        while running {
+            if let Some(value) = self
+                .transitions
+                .get(&(current_state, self.tape[self.index]))
+            {
+                match value.2 {
+                    Direction::Halt => running = false,
+                    Direction::Right => {
+                        current_state = value.0;
+                        self.tape[self.index] = value.1;
+                        self.index += 1;
+                    }
+                    Direction::Left => {
+                        current_state = value.0;
+                        self.tape[self.index] = value.1;
+                        self.index -= 1;
+                    }
+                }
+                match print_blank {
+                    true => self.print_tape(),
+                    false => self.print_tape_no_blank(),
+                }
+                println!(" | state {current_state}");
+            }
+        }
     }
 }

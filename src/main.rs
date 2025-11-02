@@ -1,14 +1,10 @@
 mod machine;
+use crate::machine::TAPE_SIZE;
 use machine::Direction;
 use machine::Machine;
 use std::collections::HashMap;
-use std::collections::HashSet;
-
-use crate::machine::TAPE_SIZE;
 
 fn main() {
-    let states = HashSet::from([1, 2, 3, 4, 5]);
-    let alphabet = HashSet::from(['0', '1']);
     let initial = 1;
     let transitions = HashMap::from([
         ((1, '0'), (1, '0', Direction::Halt)),
@@ -23,11 +19,10 @@ fn main() {
         ((5, '1'), (5, '1', Direction::Left)),
     ]);
     let blank = '0';
-    let mut tape = ['0'; TAPE_SIZE];
+    let mut tape = [blank; TAPE_SIZE];
     let index = TAPE_SIZE / 2;
     tape[index] = '1';
     tape[index + 1] = '1';
-    let m = Machine::new(states, alphabet, initial, transitions, blank, tape, index);
-    println!("{m:?}\n");
-    m.print_tape();
+    let mut m = Machine::new(initial, transitions, blank, tape, index);
+    m.execute(true);
 }
