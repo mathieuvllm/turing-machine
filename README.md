@@ -10,6 +10,10 @@ The `Machine` structure has 5 fields:
 The size of the tape is defined in machine.rs and is called `TAPE_SIZE`. Its default value is 64.
 To allow for enough room on both ends of the tape, the initial index should be `TAPE_SIZE/2` (unless you know what you are doing, this is merely a recommendation).
 
+The main functions are `new()` and `execute(print_blank: bool)`.
+`new()` allows you to create a machine, and `execute()` executes it and prints every step of the execution.
+The `print_blank` parameter allows you to choose whether or not to print the blank characters at the beginning/end of the tape.
+
 # Examples of Turing machines
 ## Machine 1
 This machine has the alphabet {0, 1}, with 0 being its blank character,
