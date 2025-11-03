@@ -1,7 +1,4 @@
-mod machine;
-use crate::machine::TAPE_SIZE;
-use machine::Direction;
-use machine::Machine;
+use turing::machine::*;
 use std::collections::HashMap;
 
 fn main() {
@@ -33,8 +30,8 @@ fn main() {
     let blank = '_';
     let mut tape = [blank; TAPE_SIZE];
     let index = TAPE_SIZE / 2;
-    tape[index] = '7';
-    tape[index + 1] = '0';
+    tape[index] = '2';
+    tape[index + 1] = '7';
     tape[index + 2] = '9';
     tape[index + 3] = '9';
     tape[index + 4] = '9';
