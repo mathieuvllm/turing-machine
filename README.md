@@ -15,6 +15,7 @@ The main functions are `new()` and `execute(print_blank: bool)`.
 The `print_blank` parameter allows you to choose whether or not to print the blank characters at the beginning/end of the tape.
 
 # Examples of Turing machines
+Here are a few examples of Turing machines you can simulate. They can all be found in the `examples/` folder, and can be executed by running `cargo run --example machine{i}` (replace `{i}` with the number of the machine you want to execute).
 ## Machine 1
 This machine has the alphabet {0, 1}, with 0 being its blank character,
 and starts with 11 in the middle of the tape.
