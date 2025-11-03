@@ -24,3 +24,7 @@ For more info, see [https://fr.wikipedia.org/wiki/Machine_de_Turing#Doubler_le_n
 
 ## Machine 2
 This machine adds 1 to a number, using _ as its blank character. In this example, we use 27999 as the initial number.
+
+## Machine 3
+This machine calculates the two's complement of a given number in binary digits. We use 1100 in this example.
+For more info, see [https://en.wikipedia.org/wiki/Two%27s_complement]
